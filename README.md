@@ -146,12 +146,7 @@ Python 与 NumPy 的版本范围都没有交集，同一个环境无法同时满
 在 `cpp` 目录执行并成功：
 
 ```bash
-g++ -std=c++17 \
-  -Iinclude \
-  -I/usr/include/eigen3 \
-  src/main.cpp src/transform.cpp \
-  $(pkg-config --cflags --libs opencv4) \
-  -o cpp_task
+g++ -std=c++17 -Iinclude -I/usr/include/eigen3 src/main.cpp src/transform.cpp $(pkg-config --cflags --libs opencv4) -o cpp_task
 ```
 
 `-I` 的作用是什么？
