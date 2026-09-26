@@ -1,0 +1,88 @@
+dong@dongPC:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 24.04.4 LTS
+Release:	24.04
+Codename:	noble
+dong@dongPC:~$ uname -r
+7.0.0-31-generic
+dong@dongPC:~$ lscpu
+架构：                       x86_64
+  CPU 运行模式：             32-bit, 64-bit
+  Address sizes:             46 bits physical, 48 bits virtual
+  字节序：                   Little Endian
+CPU:                         16
+  在线 CPU 列表：            0-15
+厂商 ID：                    GenuineIntel
+  型号名称：                 Intel(R) Core(TM) Ultra 7 356H
+    CPU 系列：               6
+    型号：                   204
+    每个核的线程数：         1
+    每个座的核数：           16
+    座：                     1
+    步进：                   2
+    CPU(s) scaling MHz:      57%
+    CPU 最大 MHz：           4700.0000
+    CPU 最小 MHz：           400.0000
+    BogoMIPS：               7372.80
+    标记：                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pg
+                             e mca cmov pat pse36 clflush dts acpi mmx fxsr sse 
+                             sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm cons
+                             tant_tsc art arch_perfmon bts rep_good nopl xtopolo
+                             gy nonstop_tsc cpuid aperfmperf tsc_known_freq pni 
+                             pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 sss
+                             e3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2api
+                             c movbe popcnt tsc_deadline_timer aes xsave avx f16
+                             c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb 
+                             ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexp
+                             riority ept vpid ept_ad fsgsbase tsc_adjust bmi1 av
+                             x2 smep bmi2 erms invpcid rdt_a rdseed adx smap clf
+                             lushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv
+                             1 xsaves split_lock_detect user_shstk avx_vnni lam 
+                             wbnoinvd dtherm ida arat pln pts hwp hwp_notify hwp
+                             _act_window hwp_epp hwp_pkg_req hfi vnmi umip pku o
+                             spke waitpkg gfni vaes vpclmulqdq rdpid bus_lock_de
+                             tect movdiri movdir64b fsrm md_clear serialize arch
+                             _lbr ibt flush_l1d arch_capabilities
+Virtualization features:     
+  虚拟化：                   VT-x
+Caches (sum of all):         
+  L1d:                       576 KiB (16 instances)
+  L1i:                       1 MiB (16 instances)
+  L2:                        24 MiB (7 instances)
+  L3:                        18 MiB (1 instance)
+NUMA:                        
+  NUMA 节点：                1
+  NUMA 节点0 CPU：           0-15
+Vulnerabilities:             
+  Gather data sampling:      Not affected
+  Ghostwrite:                Not affected
+  Indirect target selection: Not affected
+  Itlb multihit:             Not affected
+  L1tf:                      Not affected
+  Mds:                       Not affected
+  Meltdown:                  Not affected
+  Mmio stale data:           Not affected
+  Old microcode:             Not affected
+  Reg file data sampling:    Not affected
+  Retbleed:                  Not affected
+  Spec rstack overflow:      Not affected
+  Spec store bypass:         Mitigation; Speculative Store Bypass disabled via p
+                             rctl
+  Spectre v1:                Mitigation; usercopy/swapgs barriers and __user poi
+                             nter sanitization
+  Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditi
+                             onal; PBRSB-eIBRS Not affected; BHI BHI_DIS_S
+  Srbds:                     Not affected
+  Tsa:                       Not affected
+  Tsx async abort:           Not affected
+  Vmscape:                   Not affected
+dong@dongPC:~$ lspci -nn | grep -Ei 'vga|3d|display'
+00:02.0 VGA compatible controller [0300]: Intel Corporation Device [8086:b0a0]
+dong@dongPC:~$ lspci -nnk | grep -A3 -Ei 'vga|3d|display'
+00:02.0 VGA compatible controller [0300]: Intel Corporation Device [8086:b0a0]
+	Subsystem: Lenovo Device [17aa:80cf]
+	Kernel driver in use: xe
+	Kernel modules: xe
+dong@dongPC:~$ echo "$XDG_SESSION_TYPE"
+wayland
