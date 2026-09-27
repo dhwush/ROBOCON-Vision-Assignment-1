@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(robocon)
+add_executable(robocon src/main.cpp src/transform.cpp) 
+find_package(OpenCV REQUIRED)
+find_package(Eigen3 REQUIRED)
+target_include_directories(robocon PRIVATE include)
+target_link_libraries(robocon PRIVATE ${OpenCV_LIBS} Eigen3::Eigen)

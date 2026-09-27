@@ -146,12 +146,12 @@ Python 与 NumPy 的版本范围都没有交集，同一个环境无法同时满
 在 `cpp` 目录执行并成功：
 
 ```bash
-g++ -std=c++17 -Iinclude -I/usr/include/eigen3 src/main.cpp src/transform.cpp $(pkg-config --cflags --libs opencv4) -o cpp_task
+g++ -std=c++17 -Iinclude -I/usr/include/eigen3 src/main.cpp src/transform.cpp $(pkg-config --cflags --libs opencv4) -o robocon
 ```
 
 `-I` 的作用是什么？
 
-`-I` 给编译器增加一个查找头文件的目录。`-Iinclude` 用来找到 `#include "transform.hpp"`。`-I/usr/include/eigen3` 用来找到 `#include <Eigen/Dense>`。
+`-I` 给编译器增加一个查找头文件的目录。
 
 为什么 `transform.hpp` 不单独作为一个 cpp 文件编译？
 
@@ -159,16 +159,56 @@ g++ -std=c++17 -Iinclude -I/usr/include/eigen3 src/main.cpp src/transform.cpp $(
 
 为什么只写 `main.cpp` 往往无法得到完整程序？
 
-`main.cpp` 调用了 `transformFrame` 和 `composePreview`，这两个函数的实现在 `transform.cpp`。只编译 `main.cpp` 时，链接阶段找不到这两个函数的实体，程序不完整。
+`main.cpp` 调用的函数在 `transform.cpp`中才有定义。只编译 `main.cpp` 时，链接阶段找不到这两个函数的本体，程序不完整。
 
 编译成功后产生的文件是什么？
 
-当前目录下的可执行文件 `cpp/cpp_task`。
+当前目录下的可执行文件 `robocon`。
 
 ## 6. CMake Build
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+cmake_minimum_required(VERSION 3.16)
+project(robocon)
+add_executable(robocon src/main.cpp src/transform.cpp) 
+find_package(OpenCV REQUIRED)
+find_package(Eigen3 REQUIRED)
+target_include_directories(robocon PRIVATE include)
+target_link_libraries(robocon PRIVATE ${OpenCV_LIBS} Eigen3::Eigen)
 
-手工 `g++` 成功后再编写 `cpp/CMakeLists.txt`。这里放入：
 
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ cd ~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1/cpp
+cmake -S . -B build
+cmake --build build
+./build/robocon ../python_A/raw_capture.mp4
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenCV: /usr (found version "4.6.0") 
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/dong/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1/cpp/build
+[ 33%] Building CXX object CMakeFiles/robocon.dir/src/main.cpp.o
+[ 66%] Building CXX object CMakeFiles/robocon.dir/src/transform.cpp.o
+[100%] Linking CXX executable robocon
+[100%] Built target robocon
+Input: ../python_A/raw_capture.mp4
+Output: cpp_processed.mp4
+Frames: 6341
+Mean scene luma: 66.7655
+Panels: original | Otsu binary | Canny edges
+
+
+结果
 ```text
 CMakeLists.txt 的完整内容
 cmake configure 命令
@@ -178,9 +218,20 @@ cmake build 命令
 手工 g++ 命令和 CMake 的关系是什么？
 ```
 
+手工执行的 `g++` 是真正编译代码的命令。CMake 读取 `CMakeLists.txt`，生成与这条命令等价的编译和链接参数，再调用编译器完成构建。源文件变多时，每个目标在 CMake 里登记自己的源文件、头文件目录和要链接的库，不必把所有参数写进同一条 `g++` 命令。
+
 ## 7. Git / GitHub
 
 记录实际执行过的 `git status`、`git add`、`git commit`、`git branch`、`git switch`、`git push`、`git log --oneline --graph --all`。
+git restore --staged cpp/cpp_task
+git commit -m "版本3"
+[master ff939e9] 版本3
+ 6 files changed, 208 insertions(+), 6 deletions(-)
+ create mode 100644 cmakelists.txt
+ create mode 100644 cpp/README.md
+ create mode 100644 cpp/include/transform.hpp
+ create mode 100644 cpp/src/main.cpp
+ create mode 100644 cpp/src/transform.cpp
 
 ## 8. Problems and Notes
 
