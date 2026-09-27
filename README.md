@@ -208,24 +208,18 @@ Mean scene luma: 66.7655
 Panels: original | Otsu binary | Canny edges
 
 
-结果
-```text
-CMakeLists.txt 的完整内容
-cmake configure 命令
-cmake build 命令
-可执行文件运行命令
-运行结果
-手工 g++ 命令和 CMake 的关系是什么？
-```
 
-手工执行的 `g++` 是真正编译代码的命令。CMake 读取 `CMakeLists.txt`，生成与这条命令等价的编译和链接参数，再调用编译器完成构建。源文件变多时，每个目标在 CMake 里登记自己的源文件、头文件目录和要链接的库，不必把所有参数写进同一条 `g++` 命令。
+手工 g++ 命令和 CMake 的关系是什么？
+
+
+手工执行的 `g++` 是真正编译代码的命令。CMake 读取 `CMakeLists.txt`，按照其逻辑生成等价的命令。源文件变多时，每个目标在 CMake 里登记自己的源文件、头文件目录和要链接的库，不必把所有参数写进同一条 `g++` 命令。
 
 ## 7. Git / GitHub
 
 记录实际执行过的 `git status`、`git add`、`git commit`、`git branch`、`git switch`、`git push`、`git log --oneline --graph --all`。
 git restore --staged cpp/cpp_task
-git commit -m "版本3"
-[master ff939e9] 版本3
+git commit -m "版本1"
+[master ff939e9] 版本1
  6 files changed, 208 insertions(+), 6 deletions(-)
  create mode 100644 cmakelists.txt
  create mode 100644 cpp/README.md
@@ -233,6 +227,36 @@ git commit -m "版本3"
  create mode 100644 cpp/src/main.cpp
  create mode 100644 cpp/src/transform.cpp
 
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git switch -c cmake-build
+切换到一个新分支 'cmake-build'
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git branch
+* cmake-build
+  master
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git add .
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git restore --staged cpp/robocon
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git commit
+终止提交因为提交说明为空。
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git commit -m "版本2"
+[cmake-build 512f6c6] 版本2
+ 3 files changed, 65 insertions(+), 10 deletions(-)
+ delete mode 100644 cmakelists.txt
+ create mode 100644 cpp/CMakeLists.txt
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git switch master
+git merge cmake-build
+切换到分支 'master'
+更新 ff939e9..512f6c6
+Fast-forward
+ README.md          | 65 ++++++++++++++++++++++++++++++++++++++++++++++++------
+ cmakelists.txt     |  3 ---
+ cpp/CMakeLists.txt |  7 ++++++
+ 3 files changed, 65 insertions(+), 10 deletions(-)
+ delete mode 100644 cmakelists.txt
+ create mode 100644 cpp/CMakeLists.txt
+
 ## 8. Problems and Notes
 
-记录部署和运行中遇到的问题与处理方式。
+桌面播放器打不开 mp4v
+解决：安装对应的播放器
+CMake与g++语法不清楚
+C++编译过程不清楚
+解决：网络资源，询问ai
