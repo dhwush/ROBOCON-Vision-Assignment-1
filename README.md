@@ -1,8 +1,106 @@
 # Assignment 1
 
 ## 1. System Information
-
-```text
+```
+(base) dong@dongPC:~$ cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04.4 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.4 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+(base) dong@dongPC:~$ uname -r
+7.0.0-34-generic
+(base) dong@dongPC:~$ lscpu
+架构：                       x86_64
+  CPU 运行模式：             32-bit, 64-bit
+  Address sizes:             46 bits physical, 48 bits virtual
+  字节序：                   Little Endian
+CPU:                         16
+  在线 CPU 列表：            0-15
+厂商 ID：                    GenuineIntel
+  型号名称：                 Intel(R) Core(TM) Ultra 7 356H
+    CPU 系列：               6
+    型号：                   204
+    每个核的线程数：         1
+    每个座的核数：           16
+    座：                     1
+    步进：                   2
+    CPU(s) scaling MHz:      54%
+    CPU 最大 MHz：           4700.0000
+    CPU 最小 MHz：           400.0000
+    BogoMIPS：               7372.80
+    标记：                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pg
+                             e mca cmov pat pse36 clflush dts acpi mmx fxsr sse 
+                             sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm cons
+                             tant_tsc art arch_perfmon bts rep_good nopl xtopolo
+                             gy nonstop_tsc cpuid aperfmperf tsc_known_freq pni 
+                             pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 sss
+                             e3 sdbg fma cx16 xtpr pdcm pcid sse4_1 sse4_2 x2api
+                             c movbe popcnt tsc_deadline_timer aes xsave avx f16
+                             c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb 
+                             ssbd ibrs ibpb stibp ibrs_enhanced tpr_shadow flexp
+                             riority ept vpid ept_ad fsgsbase tsc_adjust bmi1 av
+                             x2 smep bmi2 erms invpcid rdt_a rdseed adx smap clf
+                             lushopt clwb intel_pt sha_ni xsaveopt xsavec xgetbv
+                             1 xsaves split_lock_detect user_shstk avx_vnni lam 
+                             wbnoinvd dtherm ida arat pln pts hwp hwp_notify hwp
+                             _act_window hwp_epp hwp_pkg_req hfi vnmi umip pku o
+                             spke waitpkg gfni vaes vpclmulqdq rdpid bus_lock_de
+                             tect movdiri movdir64b fsrm md_clear serialize arch
+                             _lbr ibt flush_l1d arch_capabilities
+Virtualization features:     
+  虚拟化：                   VT-x
+Caches (sum of all):         
+  L1d:                       576 KiB (16 instances)
+  L1i:                       1 MiB (16 instances)
+  L2:                        24 MiB (7 instances)
+  L3:                        18 MiB (1 instance)
+NUMA:                        
+  NUMA 节点：                1
+  NUMA 节点0 CPU：           0-15
+Vulnerabilities:             
+  Gather data sampling:      Not affected
+  Ghostwrite:                Not affected
+  Indirect target selection: Not affected
+  Itlb multihit:             Not affected
+  L1tf:                      Not affected
+  Mds:                       Not affected
+  Meltdown:                  Not affected
+  Mmio stale data:           Not affected
+  Old microcode:             Not affected
+  Reg file data sampling:    Not affected
+  Retbleed:                  Not affected
+  Spec rstack overflow:      Not affected
+  Spec store bypass:         Mitigation; Speculative Store Bypass disabled via p
+                             rctl
+  Spectre v1:                Mitigation; usercopy/swapgs barriers and __user poi
+                             nter sanitization
+  Spectre v2:                Mitigation; Enhanced / Automatic IBRS; IBPB conditi
+                             onal; PBRSB-eIBRS Not affected; BHI BHI_DIS_S
+  Srbds:                     Not affected
+  Tsa:                       Not affected
+  Tsx async abort:           Not affected
+  Vmscape:                   Not affected
+(base) dong@dongPC:~$ lspci | grep -Ei 'vga|3d|display'
+00:02.0 VGA compatible controller: Intel Corporation Device b0a0
+(base) dong@dongPC:~$ lspci -k | grep -EA3 'VGA|3D|Display'
+00:02.0 VGA compatible controller: Intel Corporation Device b0a0
+	Subsystem: Lenovo Device 80cf
+	Kernel driver in use: xe
+	Kernel modules: xe
+(base) dong@dongPC:~$ echo "$XDG_SESSION_TYPE"
+wayland
+(base) dong@dongPC:~$ echo "$WAYLAND_DISPLAY"
+wayland-0
+```
+```
 Ubuntu:        Ubuntu 24.04.4 LTS (noble)
 Kernel:        7.0.0-31-generic
 CPU:           Intel(R) Core(TM) Ultra 7 356H
@@ -15,11 +113,10 @@ NVIDIA Driver: N/A
 CUDA Toolkit:  N/A
 ```
 
-`lspci` 只看到这一块 Intel 核显，没有 NVIDIA GPU，因此 NVIDIA Driver 与 CUDA Toolkit 记为 N/A。
+
 
 ## 2. Python Project A
 
-工作目录：`ROBOCON-Vision-Assignment-1/python_A`。Conda 环境名 `robocon-a`，未修改 `pyproject.toml` 的 `requires-python`。
 
 ```bash
 cd ~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1/python_A
@@ -177,6 +274,7 @@ target_include_directories(robocon PRIVATE include)
 target_link_libraries(robocon PRIVATE ${OpenCV_LIBS} Eigen3::Eigen)
 
 
+```text
 (base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ cd ~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1/cpp
 cmake -S . -B build
 cmake --build build
@@ -206,17 +304,20 @@ Output: cpp_processed.mp4
 Frames: 6341
 Mean scene luma: 66.7655
 Panels: original | Otsu binary | Canny edges
+```
 
 
-
+```
 手工 g++ 命令和 CMake 的关系是什么？
 
 
 手工执行的 `g++` 是真正编译代码的命令。CMake 读取 `CMakeLists.txt`，按照其逻辑生成等价的命令。源文件变多时，每个目标在 CMake 里登记自己的源文件、头文件目录和要链接的库，不必把所有参数写进同一条 `g++` 命令。
-
+```
 ## 7. Git / GitHub
 
 记录实际执行过的 `git status`、`git add`、`git commit`、`git branch`、`git switch`、`git push`、`git log --oneline --graph --all`。
+
+```text
 git restore --staged cpp/cpp_task
 git commit -m "版本1"
 [master ff939e9] 版本1
@@ -257,11 +358,26 @@ Fast-forward
 (base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git commit -m "版本3"
 [master f402292] 版本3
  1 file changed, 36 insertions(+), 12 deletions(-)
+ ssignment-1$ git status
+位于分支 master
+无文件要提交，干净的工作区
+
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git log --oneline --graph --all
+
+* f402292 版本4
+* 512f6c6 (cmake-build) 版本3
+* ff939e9 版本2
+* 447c25b 记录系统信息与 Python A/B 的运行结果
+```
 
 ## 8. Problems and Notes
-
+```
+我的电脑有独显，也曾经装过驱动，可以识别显卡，第一部分没有识别是因为我为了续航开的纯集显
+最后几次git提交我没有记录上
+并未实际用上git branch，只是尝试了一下
 桌面播放器打不开 mp4v
 解决：安装对应的播放器
 CMake与g++语法不清楚
 C++编译过程不清楚
 解决：网络资源，询问ai
+```
