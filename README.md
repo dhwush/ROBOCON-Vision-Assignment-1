@@ -252,6 +252,11 @@ Fast-forward
  3 files changed, 65 insertions(+), 10 deletions(-)
  delete mode 100644 cmakelists.txt
  create mode 100644 cpp/CMakeLists.txt
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git add .
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git restore --staged cpp/robocon
+(base) dong@dongPC:~/robocon/ROBOCON-Vision-Assignment1-Starter/ROBOCON-Vision-Assignment-1$ git commit -m "版本3"
+[master f402292] 版本3
+ 1 file changed, 36 insertions(+), 12 deletions(-)
 
 ## 8. Problems and Notes
 
